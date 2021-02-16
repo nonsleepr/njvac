@@ -25,6 +25,14 @@ func main() {
 		fmt.Println("Failed to retrieve Hackensack Meridian Health data:", err)
 	}
 
+	fmt.Printf("\n\n==== ShopRite (%s) ====\n\n", njvac.ShopRiteURL)
+	shopRite, err := njvac.GetShopRiteStatus()
+	if err == nil {
+		fmt.Println(shopRite)
+	} else {
+		fmt.Println("Failed to retrieve ShopRite data:", err)
+	}
+
 	fmt.Printf("\n\n==== RiteAid (%s) ====\n\n", njvac.RiteAidURL)
 	riteaidData, err := njvac.GetRiteAidStatus("07450")
 	if err == nil {
