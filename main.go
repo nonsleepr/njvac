@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+const zipCode = "07450"
+
 func main() {
 	fmt.Printf("\n\n==== CVS Vaccination (%s) ====\n\n", njvac.CvsURL)
 	cvsData, cvsTimestamp, err := njvac.GetCVSData()
@@ -42,7 +44,7 @@ func main() {
 	}
 
 	fmt.Printf("\n\n==== RiteAid (%s) ====\n\n", njvac.RiteAidURL)
-	riteaidData, err := njvac.GetRiteAidStatus("07450")
+	riteaidData, err := njvac.GetRiteAidStatus(zipCode)
 	if err == nil {
 		table.MarshalTo(os.Stdout, riteaidData, &table.Config{})
 	} else {
