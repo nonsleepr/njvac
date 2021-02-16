@@ -4,10 +4,10 @@ import (
 	"github.com/antchfx/htmlquery"
 )
 
-const url = "https://www.hackensackmeridianhealth.org/covid19/covid19-vaccination-scheduling-for-16-64-with-underlying-health-condition/"
+const HmhURL = "https://www.hackensackmeridianhealth.org/covid19/covid19-vaccination-scheduling-for-16-64-with-underlying-health-condition/"
 
 func GetHMHStatus() (string, error) {
-	doc, err := htmlquery.LoadURL(url)
+	doc, err := htmlquery.LoadURL(HmhURL)
 	if err != nil {
 		return "", err
 	}

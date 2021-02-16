@@ -7,7 +7,7 @@ import (
 	"net/http"
 )
 
-const referer = "https://www.cvs.com/immunizations/covid-19-vaccine"
+const CvsURL = "https://www.cvs.com/immunizations/covid-19-vaccine"
 const statusUrl = "https://www.cvs.com/immunizations/covid-19-vaccine.vaccine-status.NJ.json"
 
 type CVSAvailability struct {
@@ -33,7 +33,7 @@ func GetCVSData() ([]CVSAvailability, string, error) {
 	if err != nil {
 		return nil, "", err
 	}
-	req.Header.Add("Referer", referer)
+	req.Header.Add("Referer", CvsURL)
 	resp, err := http.DefaultClient.Do(req)
 	if err != nil {
 		return nil, "", err
@@ -44,7 +44,10 @@ func GetCVSData() ([]CVSAvailability, string, error) {
 		return nil, "", err
 	}
 	var result CVSResult
-	json.Unmarshal(data, &result)
+	err = json.Unmarshal(data, &result)
+	if err != nil {
+		return nil, "", err
+	}
 
 	if result.Metadata.Status == "Success" {
 		return result.Payload.Data["NJ"], result.Payload.CurrentTime, nil
