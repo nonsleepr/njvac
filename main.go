@@ -9,6 +9,13 @@ import (
 
 const zipCode = "07450"
 
+func statusString(status bool) string {
+	if status {
+		return "✅"
+	}
+	return "⛔"
+}
+
 func main() {
 	fmt.Printf("\n\n==== CVS Vaccination (%s) ====\n\n", njvac.CvsURL)
 	cvsData, cvsTimestamp, err := njvac.GetCVSData()
@@ -20,25 +27,25 @@ func main() {
 	}
 
 	fmt.Printf("\n\n==== Hackensack Meridian Health (%s) ====\n\n", njvac.HmhURL)
-	hmh, err := njvac.GetHMHStatus()
+	hmh, status, err := njvac.GetHMHStatus()
 	if err == nil {
-		fmt.Println(hmh)
+		fmt.Println(statusString(status), hmh)
 	} else {
 		fmt.Println("Failed to retrieve Hackensack Meridian Health data:", err)
 	}
 
 	fmt.Printf("\n\n==== ShopRite (%s) ====\n\n", njvac.ShopRiteURL)
-	shopRite, err := njvac.GetShopRiteStatus()
+	shopRite, status, err := njvac.GetShopRiteStatus()
 	if err == nil {
-		fmt.Println(shopRite)
+		fmt.Println(statusString(status), shopRite)
 	} else {
 		fmt.Println("Failed to retrieve ShopRite data:", err)
 	}
 
 	fmt.Printf("\n\n==== Valley Health (%s) ====\n\n", njvac.ValleyHealthURL)
-	valleyHealth, err := njvac.GetValleyHealthStatus()
+	valleyHealth, status, err := njvac.GetValleyHealthStatus()
 	if err == nil {
-		fmt.Println(valleyHealth)
+		fmt.Println(statusString(status), valleyHealth)
 	} else {
 		fmt.Println("Failed to retrieve Valley Health data:", err)
 	}
