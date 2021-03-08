@@ -13,7 +13,7 @@ func GetValleyHealthStatus() (message string, status bool, err error) {
 		return
 	}
 	node, err := htmlquery.Query(doc, "/html/body/div/div/section[3]/section[2]/div/div/div/div/div/div/div/article/div/div/div/p[1]/strong")
-	if err != nil {
+	if err != nil || node == nil {
 		return
 	}
 	message = node.FirstChild.Data
